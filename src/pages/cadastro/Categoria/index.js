@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import PageDefault from '../../../components/PageDefault'
 import { Link } from 'react-router-dom'
 import FormField from '../../../components/FormField'
@@ -43,6 +43,39 @@ function CadastroCategoria(){
 		setValues(valoresEmBranco)
 
 	}
+
+	useEffect(() =>{
+		console.log('alo alo, w brasil')
+		setTimeout(	() =>{
+			setCategorias([
+				...categorias,
+				{
+					id:1, 
+					nome: 'front end',
+					descricao: 'uma catego',
+					cor: '#cccccc',
+				},
+				{
+					id:2, 
+					nome: 'back end',
+					descricao: 'du catego',
+					cor: '#cccccc',
+				}
+			])
+		const URL_TOP = 'http://localhost:8081/categorias'
+
+		fetch(URL_TOP)
+			.then(async (respostaDoServidor) => {
+				const resposta = await respostaDoServidor.json()
+				console.log(resposta)
+				setCategorias(resposta
+				)
+				//ou setCategorias([...resposta])
+			})
+		
+		
+		}, 3000)
+	},[values.nome])
 	return(
 		<PageDefault>
 		<h1>Cadastro de Categoria: {values.nome}</h1>
@@ -54,7 +87,7 @@ function CadastroCategoria(){
 			onSubmit={handleSubmit}>
 				<FormField 
 					label="Nome da categoria"
-					type="text"
+					type="textarea"
 					value={values.nome}
 					onChange={handleCategoria}
 					name="nome"
@@ -96,10 +129,19 @@ function CadastroCategoria(){
 			<button>
 				Cadastrar
 			</button>
-			{categorias.map((categoria, indice) =>{
+		
+		</form>
+
+		{categorias.length === 0 && (
+			<div>
+				Loading...
+			</div>
+		)
+
+		}
+		{categorias.map((categoria, indice) =>{
 				return(<li key={indice}>{categoria.nome}</li>)
 			})}
-		</form>
 
 
 		<Link to="/">
