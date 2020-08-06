@@ -1,0 +1,9 @@
+1. no json server, eh possivel de se ter relacionamento ao
+criar o campo com o padrao como abaixo:
+-categorias
+-videos
+se eu quiser relacionamento com categorias, crio 'categoriaId'
+se eu quiser relacionamento com videos, crio 'videoId'
+
+2. p trazer os videos daquela categoria, usar a url abaixo:
+-http://localhost:8081/categorias?_embed=videos

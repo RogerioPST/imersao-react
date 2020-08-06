@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import PageDefault from '../../../components/PageDefault'
 import { Link } from 'react-router-dom'
 import FormField from '../../../components/FormField'
+import useForm from '../../../hooks/useForm'
 
 function CadastroCategoria(){
 	const [categorias, setCategorias] = useState([])
@@ -17,19 +18,20 @@ function CadastroCategoria(){
 		descricao: '',
 		cor: '#FFF'
 	}
-	const [values,setValues] = useState(valoresIniciais)
+	//const [values,setValues] = useState(valoresIniciais)
+	const {handleChange, values, clearForm, setValue}= useForm(valoresIniciais)
 	
-	function setValue(chave, valor){
+	/* function setValue(chave, valor){
 		setValues({
 			...values,
 			[chave]: valor,
 		})
-	}
+	} */
 
 	function handleCategoria(event){
 		const {name, value} = event.target
 		setValue(name,value)
-	}
+	} 
 	function handleCor(event){
 		setCor(event.target.value)
 	}
@@ -40,7 +42,7 @@ function CadastroCategoria(){
 			...categorias,
 			values
 		])
-		setValues(valoresEmBranco)
+		clearForm(valoresEmBranco)
 
 	}
 
